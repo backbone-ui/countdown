@@ -1,0 +1,30 @@
+{
+	"name": "backbone.ui.countdown",
+	"version": "0.0.1",
+	"description": "Model for simple countdowns",
+	"authors": [
+		"Makis Tracend <makis@makesit.es>"
+	],
+	"license": "MIT",
+	"keywords": [
+		"makesites",
+		"countdown",
+		"timer",
+		"date",
+		"time",
+		"timespan"
+	],
+	"repository": {
+		"type": "git",
+		"url": "git://github.com/backbone-ui/countdown.git"
+	},
+	"ignore": [
+		"node_modules"
+	],
+	"dependencies": {
+		"backbone": "*",
+		"underscore": "*",
+		"tick": "*"
+	}
+}
+
