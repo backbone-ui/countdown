@@ -140,4 +140,7 @@ window.Tick=window.Tick||function(e){var t=function(e){e=e||{};if(e.rate)this.op
 		}
 	}
 
+	// return main object for module loaders
+	return Countdown;
+
 }));
