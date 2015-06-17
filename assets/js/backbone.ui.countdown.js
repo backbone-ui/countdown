@@ -58,12 +58,15 @@ window.Tick=window.Tick||function(e){var t=function(e){e=e||{};if(e.rate)this.op
 
 		tick: new Tick(),
 
-		initialize: function( options ){
+		initialize: function( data, options ){
+			// fallbacks
+			data = data || null;
+			options = options || {};
 			_.bindAll(this, 'update');
 			// loop
 			this.tick.add(this.update, 1000);
 
-			return Model.prototype.initialize.call( this, options );
+			return Model.prototype.initialize.call( this, data, options );
 
 		},
 
@@ -107,12 +110,14 @@ window.Tick=window.Tick||function(e){var t=function(e){e=e||{};if(e.rate)this.op
 		data: new Data(),
 
 		initialize: function( options ){
+			// fallbacks
+			options = options || {};
 			_.bindAll(this, 'render');
 			// pass options to model
 			if( options.target ) this.data.setTarget( options.target );
 			// events
 			this.data.on("change", this.render);
-			//return View.prototype.initialize.call( this, options );
+			return View.prototype.initialize.call( this, options );
 		},
 
 		render: function(){
