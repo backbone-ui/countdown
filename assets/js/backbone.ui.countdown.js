@@ -52,7 +52,7 @@ window.Tick=window.Tick||function(e){var t=function(e){e=e||{};if(e.rate)this.op
 		},
 
 		options : {
-			target: new Date().getTime(),
+			target: 0,
 			delta: 0
 		},
 
@@ -71,6 +71,8 @@ window.Tick=window.Tick||function(e){var t=function(e){e=e||{};if(e.rate)this.op
 		},
 
 		update: function () {
+			// prerequisites
+			if( !this.options.target ) return;
 			// find the amount of "seconds" between now and target
 			var current_date = new Date().getTime();
 			var target_date = this.options.target;
