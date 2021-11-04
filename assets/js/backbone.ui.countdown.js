@@ -101,8 +101,9 @@ window.Tick=window.Tick||function(e){var t=function(e){e=e||{};if(e.rate)this.op
 		// helpers
 
 		setTarget: function( target ){
-			// target has to be a date in a string form
-			this.options.target = new Date( target ).getTime();
+			// support timestamps (or string form)
+			var d = ( isNaN( parseInt(target, 10 ) ) ) ? target : parseInt(target, 10 );
+			this.options.target = new Date( d ).getTime();
 		}
 
 	});
