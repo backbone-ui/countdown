@@ -56,6 +56,10 @@ window.Tick=window.Tick||function(e){var t=function(e){e=e||{};if(e.rate)this.op
 			delta: 0
 		},
 
+		state: {
+			start: false
+		},
+
 		tick: new Tick(),
 
 		initialize: function( data, options ){
@@ -73,6 +77,8 @@ window.Tick=window.Tick||function(e){var t=function(e){e=e||{};if(e.rate)this.op
 		update: function () {
 			// prerequisites
 			if( !this.options.target ) return;
+			if( !this.state.start ) return;
+
 			// find the amount of "seconds" between now and target
 			var current_date = new Date().getTime();
 			var target_date = this.options.target;
@@ -96,6 +102,7 @@ window.Tick=window.Tick||function(e){var t=function(e){e=e||{};if(e.rate)this.op
 				minutes: minutes,
 				seconds: seconds
 			});
+
 		},
 
 		// helpers
@@ -110,14 +117,22 @@ window.Tick=window.Tick||function(e){var t=function(e){e=e||{};if(e.rate)this.op
 
 	var Countdown = View.extend({
 
+		options: {
+			autostart: true,
+		},
+
 		data: new Data(),
 
 		initialize: function( options ){
 			// fallbacks
 			options = options || {};
 			_.bindAll(this, 'render');
-			// pass options to model
+
+			// pass target date to model
 			if( options.target ) this.data.setTarget( options.target );
+			// FIX: autostart needs to be updated now
+			this.data.state.start = ( options.autostart === false ) ? false : true;
+
 			// events
 			this.data.on("change", this.render);
 			return View.prototype.initialize.call( this, options );
@@ -128,6 +143,18 @@ window.Tick=window.Tick||function(e){var t=function(e){e=e||{};if(e.rate)this.op
 			if( !template ) return;
 			var data = this.data.toJSON();
 			$(this.el).html(_.template(template, data));
+		},
+
+		getState: function(){
+			return this.data.state.start;
+		},
+
+		onStart: function(){
+			this.data.state.start = true;
+		},
+
+		onStop: function(){
+			this.data.state.start = false;
 		}
 
 	});
